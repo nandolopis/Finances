@@ -9,7 +9,7 @@ import com.fernandolopes.domain.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
-	@Transactional(readOnly=true) //nao nessecita se uma trasação de banco de dados, deixando mais rapido
+	@Transactional(readOnly=true) //nao necessita se uma transação de banco de dados, deixando mais rapido
 	Cliente findByEmail(String email);
 
 }
