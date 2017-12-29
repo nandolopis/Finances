@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fernandolopes.domain.enums.TipoCliente;
+
 
 @Entity
 public class Cliente implements Serializable{
@@ -25,8 +28,10 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique=true)
 	private String email;
-	private String cpfOuCmpj;
+	private String cpfOuCnpj;
 	private Integer tipo;
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) //cascade=CascadeType.ALL para exclusão em cascata. se apagar o cliente apaga o endereço tbm
@@ -35,6 +40,10 @@ public class Cliente implements Serializable{
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	
 	
@@ -46,7 +55,7 @@ public class Cliente implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfOuCmpj = cpfOuCmpj;
+		this.cpfOuCnpj = cpfOuCmpj;
 		this.tipo = (tipo==null) ? null : tipo.getCod();
 	}
 
@@ -75,11 +84,11 @@ public class Cliente implements Serializable{
 	}
 
 	public String getCpfOuCmpj() {
-		return cpfOuCmpj;
+		return cpfOuCnpj;
 	}
 
 	public void setCpfOuCmpj(String cpfOuCmpj) {
-		this.cpfOuCmpj = cpfOuCmpj;
+		this.cpfOuCnpj = cpfOuCmpj;
 	}
 
 	public Integer getTipo() {
