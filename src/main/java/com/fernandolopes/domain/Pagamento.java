@@ -15,7 +15,7 @@ import com.fernandolopes.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Pagamento implements Serializable {
+public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -28,11 +28,10 @@ public class Pagamento implements Serializable {
 	@MapsId
 	private Pedido pedido;
 	
-	public Pagamento() {
-		
+	public Pagamento() {	
 	}
 
-	public Pagamento(Integer id, EstadoPagamento  estado, Pedido pedido) {
+	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
 		this.estado = (estado==null) ? null : estado.getCod();
@@ -47,12 +46,20 @@ public class Pagamento implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getEstado() {
-		return estado;
+	public EstadoPagamento getEstado() {
+		return EstadoPagamento.toEnum(estado);
 	}
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
+	public void setEstado(EstadoPagamento estado) {
+		this.estado = estado.getCod();
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override

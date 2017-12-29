@@ -83,22 +83,22 @@ public class Cliente implements Serializable{
 		this.email = email;
 	}
 
-	public String getCpfOuCmpj() {
+	public String getCpfOuCnpj() {
 		return cpfOuCnpj;
 	}
 
-	public void setCpfOuCmpj(String cpfOuCmpj) {
-		this.cpfOuCnpj = cpfOuCmpj;
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoCliente tipo) {
+		this.tipo = tipo.getCod();
 	}
-	
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -113,6 +113,14 @@ public class Cliente implements Serializable{
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

@@ -72,6 +72,8 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

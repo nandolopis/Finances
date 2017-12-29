@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -31,9 +32,8 @@ public class Produto implements Serializable{
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	private List<Categoria> categoria = new ArrayList<>();
+		inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="id.produto")
@@ -49,11 +49,19 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
+	}
+	
 	
 	public Integer getId() {
 		return id;
 	}
-	
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -75,12 +83,20 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 
-	public List<Categoria> getList() {
-		return categoria;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setList(List<Categoria> list) {
-		this.categoria = list;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	@Override
@@ -90,6 +106,9 @@ public class Produto implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {
