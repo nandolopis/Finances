@@ -1,4 +1,5 @@
 package com.fernandolopes.resources;
+//Endpont
 
 import java.net.URI;
 import java.util.List;
@@ -65,6 +66,8 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	
+	//endpoint de busca paginada
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			
