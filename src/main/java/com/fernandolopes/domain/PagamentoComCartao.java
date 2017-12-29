@@ -18,8 +18,8 @@ public class PagamentoComCartao extends Pagamento {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PagamentoComCartao(Integer id, EstadoPagamento estado,  Date numeroDeParcelas) {
-		super(id, estado);
+	public PagamentoComCartao(Integer id, EstadoPagamento estado,Pedido pedido , Date numeroDeParcelas ) {
+		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
 
