@@ -8,8 +8,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fernandolopes.services.exception.validation.ClienteInsert;
 
-
-
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
