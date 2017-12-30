@@ -11,5 +11,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	@Transactional(readOnly=true) //nao necessita se uma transação de banco de dados, deixando mais rapido
 	Cliente findByEmail(String email);
-
+	
 }
