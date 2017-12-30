@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fernandolopes.domain.enums.EstadoPagamento;
 @Entity
-@JsonTypeName("pagamentoComBoleto") //anotaçao para preparar o Json para inserir um pedido 
+@JsonTypeName("pagamentoComCartao") //anotaçao para preparar o Json para inserir um pedido 
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 
