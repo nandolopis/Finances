@@ -2,8 +2,6 @@ package com.fernandolopes.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,7 +21,6 @@ public class ClienteNewDTO implements Serializable {
 	private String email;
 	
 	@NotEmpty(message="Preenchimento Obrigatorio")
-	@Column(unique=true)
 	private String cpfOuCnpj;
 	
 	private Integer tipo;
