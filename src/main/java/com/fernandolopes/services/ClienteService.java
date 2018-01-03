@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import com.fernandolopes.domain.Cidade;
 import com.fernandolopes.domain.Cliente;
 import com.fernandolopes.domain.Endereco;
+import com.fernandolopes.domain.enums.Perfil;
 import com.fernandolopes.domain.enums.TipoCliente;
 import com.fernandolopes.dto.ClienteDTO;
 import com.fernandolopes.dto.ClienteNewDTO;
 import com.fernandolopes.repositories.CidadeRepository;
 import com.fernandolopes.repositories.ClienteRepository;
 import com.fernandolopes.repositories.EnderecoRepository;
+import com.fernandolopes.security.UserSS;
+import com.fernandolopes.services.exception.AuthorizationException;
 import com.fernandolopes.services.exception.DataIntegrityException;
 import com.fernandolopes.services.exception.ObjectNotFoundException;
 
@@ -39,6 +42,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+ 		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+ 			throw new AuthorizationException("Acesso negado");
+ 		}
+		 		
 		Cliente obj = repo.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
