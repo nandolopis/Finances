@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.fernandolopes.domain.Categoria;
 import com.fernandolopes.domain.Cliente;
 import com.fernandolopes.domain.ItemPedido;
 import com.fernandolopes.domain.PagamentoComBoleto;
