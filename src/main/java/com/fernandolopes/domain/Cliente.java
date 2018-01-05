@@ -114,26 +114,23 @@ public class Cliente implements Serializable{
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
-	public Set<Perfil> getPerfis(){
-		//lambda para converter string e inteiro
+	}	
+
+	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
-		
 	}
 	
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
-		
 	}
-
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -157,7 +154,6 @@ public class Cliente implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-
 	
 
 

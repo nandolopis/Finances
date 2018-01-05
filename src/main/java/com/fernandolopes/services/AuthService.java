@@ -15,8 +15,10 @@ public class AuthService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	
 	@Autowired
 	private EmailService emailService;
 	
@@ -27,7 +29,6 @@ public class AuthService {
 		Cliente cliente = clienteRepository.findByEmail(email);
 		if (cliente == null) {
 			throw new ObjectNotFoundException("Email nao encontrado");
-			
 		}
 		
 		String newPass = newPassword();
@@ -35,20 +36,18 @@ public class AuthService {
 		
 		clienteRepository.save(cliente);
 		emailService.sendNewPasswordEmail(cliente, newPass);
-		
 	}
 
 	private String newPassword() {
 		char[] vet = new char[10];
-		for (int i=0; i<10;i++ ) {
-			vet[i] = randomchar();
+		for (int i=0; i<10; i++ ) {
+			vet[i] = randomChar();
 		}
 		return new String(vet);
 	}
 
-	private char randomchar() {
-		int opt = rand.nextInt(3);
-		//baseado na tabela unicode https://unicode-table.com/pt/
+	private char randomChar() {
+		int opt = rand.nextInt(3); //baseado na tabela unicode https://unicode-table.com/pt/
 		if (opt == 0 ) { //gera um digito
 			return (char) (rand.nextInt(10) + 48);
 		}
@@ -57,8 +56,6 @@ public class AuthService {
 		}
 		else {//gera letra minuscula
 			return (char) (rand.nextInt(26) + 97);
-		}
-		
+		}		
 	}
-
 }

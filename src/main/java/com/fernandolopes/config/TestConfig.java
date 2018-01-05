@@ -16,10 +16,11 @@ import com.fernandolopes.services.MockEmailService;
 public class TestConfig {
 	
 	@Autowired
-	private DBService dbServer;
+	private DBService dbService;
+	
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
-		dbServer.instantiateTestDatabase();
+		dbService.instantiateTestDatabase();
 		return true;
 	}
 	
@@ -27,5 +28,4 @@ public class TestConfig {
 	public EmailService emailService() {
 		return new MockEmailService();
 	}
-
 }

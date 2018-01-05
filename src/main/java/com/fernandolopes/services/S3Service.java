@@ -28,17 +28,10 @@ public class S3Service {
 
 	public URI uploadFile(MultipartFile multipartFile) {
 		try {
-			//metodo para extrair o nome do arquido que foi enviado 
 			String fileName = multipartFile.getOriginalFilename();
-			
-			//objeto de leitura para encapsular de um obj de origem
 			InputStream is = multipartFile.getInputStream();
-			
-			//imformação do tipo do arquivo que foi enviado
 			String contentType = multipartFile.getContentType();
-			
 			return uploadFile(is, fileName, contentType);
-			
 		} catch (IOException e) {
 			throw new RuntimeException("Erro de IO: " + e.getMessage());
 		}

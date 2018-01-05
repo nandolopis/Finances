@@ -17,17 +17,15 @@ public abstract class AbstractEmailService implements EmailService {
 	public void sendOrderConfirmationEmail(Pedido obj) {
 		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
 		sendEmail(sm);
-		
 	}
 
 	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(Pedido obj) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(obj.getCliente().getEmail());
 		sm.setFrom(sender);
-		sm.setSubject("Pedido confirmato! Código: " + obj.getId());
+		sm.setSubject("Pedido confirmado! Código: " + obj.getId());
 		sm.setSentDate(new Date(System.currentTimeMillis())); //System.currentTimeMillis() para garantir que seja pego a data do sistema
-		sm.setText(obj.toString());
-		
+		sm.setText(obj.toString());	
 		return sm;
 	}
 	
@@ -37,7 +35,7 @@ public abstract class AbstractEmailService implements EmailService {
 		sendEmail(sm);
 	}
 
-	private SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+	protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(cliente.getEmail());
 		sm.setFrom(sender);
@@ -46,5 +44,4 @@ public abstract class AbstractEmailService implements EmailService {
 		sm.setText("Nova Senha: " + newPass);
 		return sm;
 	}
-
 }
