@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fernandolopes.cursomc.domain.Banco;
 import com.fernandolopes.cursomc.domain.Categoria;
 import com.fernandolopes.cursomc.domain.Cidade;
 import com.fernandolopes.cursomc.domain.Cliente;
+import com.fernandolopes.cursomc.domain.Conta;
 import com.fernandolopes.cursomc.domain.Endereco;
 import com.fernandolopes.cursomc.domain.Estado;
 import com.fernandolopes.cursomc.domain.ItemPedido;
@@ -22,9 +24,11 @@ import com.fernandolopes.cursomc.domain.Produto;
 import com.fernandolopes.cursomc.domain.enums.EstadoPagamento;
 import com.fernandolopes.cursomc.domain.enums.Perfil;
 import com.fernandolopes.cursomc.domain.enums.TipoCliente;
+import com.fernandolopes.cursomc.repositories.BancoRepository;
 import com.fernandolopes.cursomc.repositories.CategoriaRepository;
 import com.fernandolopes.cursomc.repositories.CidadeRepository;
 import com.fernandolopes.cursomc.repositories.ClienteRepository;
+import com.fernandolopes.cursomc.repositories.ContaRepository;
 import com.fernandolopes.cursomc.repositories.EnderecoRepository;
 import com.fernandolopes.cursomc.repositories.EstadoRepository;
 import com.fernandolopes.cursomc.repositories.ItemPedidoRepository;
@@ -56,6 +60,10 @@ public class DBService {
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	@Autowired
+	private ContaRepository contaRepository;
+	@Autowired
+	private BancoRepository bancoRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -190,10 +198,12 @@ public class DBService {
 				p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p34, p35, p36, p37, p38,
 				p39, p40, p41, p42, p43, p44, p45, p46, p47, p48, p49, p50));
 		
-		Estado est1 = new Estado(null, "Minas Gerais");
+		
+		
+		Estado est1 = new Estado(null, "Paraná");
 		Estado est2 = new Estado(null, "São Paulo");
 		
-		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c1 = new Cidade(null, "Araruna", est1);
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
 		Cidade c3 = new Cidade(null, "Campinas", est2);
 		
@@ -203,10 +213,10 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "nelio.cursos@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli1 = new Cliente(null, "Maria Silva", "nandolopis@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Cliente cli2 = new Cliente(null, "Ana Costa", "nelio.iftm@gmail.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli2 = new Cliente(null, "Ana Costa", "nandolopis@hotmail.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli2.getTelefones().addAll(Arrays.asList("93883321", "34252625"));
 		cli2.addPerfil(Perfil.ADMIN);
 		
@@ -247,6 +257,15 @@ public class DBService {
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
-		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));	
+		
+		Banco bc1 = new Banco(null, "Caixa Economica Federal");
+		Conta ct1 = new Conta(null, "corrente ", bc1, cli1);
+		
+		bancoRepository.save(Arrays.asList(bc1));
+		contaRepository.save(Arrays.asList(ct1));
+		
+		
+				
 	}
 }
