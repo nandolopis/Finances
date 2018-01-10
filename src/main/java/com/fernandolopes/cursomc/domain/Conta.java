@@ -1,6 +1,8 @@
 package com.fernandolopes.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,9 +32,19 @@ public class Conta implements Serializable{
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente; 
 	
+	@OneToMany(mappedBy="id.conta")
+	private Set<MovimentoConta> mov = new HashSet<>();
 	
 	
 	public Conta() {
+	}
+	
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (MovimentoConta ip : mov) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
 	}
 
 
