@@ -10,12 +10,19 @@ import com.fernandolopes.cursomc.repositories.ContaRepository;
 
 @Service
 public class ContaService {
-	
+
 	@Autowired
 	private ContaRepository repo;
-	
+
 	public List<Conta> findAll() {
 		return repo.findAllByOrderByNome();
 	}
-
+	
+	public Conta insert(Conta obj) {
+		obj.setId(null);
+		obj.setNome(obj.getNome());
+		
+		return repo.save(obj);
+	}
+	
 }
