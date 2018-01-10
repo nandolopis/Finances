@@ -54,6 +54,8 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	
+	@ElementCollection
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Conta> contas = new ArrayList<>();
 	
